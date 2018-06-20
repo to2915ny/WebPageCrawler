@@ -1,7 +1,6 @@
 package edu.handong.csee.java.webpagecrawler;
 
 import java.net.*;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.io.*;
 
