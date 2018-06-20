@@ -8,8 +8,8 @@ public class HTMLsave {
 	
 	
 	
-	public void writeFile(ArrayList <String>url) {
-		String fileName = "outputResult.html";
+	public void writeFile(ArrayList <String>url,String dest) {
+		String fileName = dest+"/outputResult.html";
 		PrintWriter output = null;
 		ArrayList<String>list = url;
 		try {

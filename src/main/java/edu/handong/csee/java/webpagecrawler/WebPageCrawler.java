@@ -12,7 +12,7 @@ import org.apache.commons.cli.Options;
 public class WebPageCrawler {
 	
 	String path;
-	String output;
+	String destination;
 	
 	boolean help;
 
@@ -20,19 +20,27 @@ public class WebPageCrawler {
 		
 		WebPageCrawler runner = new WebPageCrawler();
 		
-		runner.run();
+		runner.run(args);
 
 	}
 
-	public void run() {
+	public void run(String[] args) {
+		Options options = createOptions();
+
+		if(parseOptions(options, args)) {
+			if (help){
+				printHelp(options);
+				return;
+			}
+		
 		
 		URLreader read = new URLreader();
 		HTMLsave html = new HTMLsave();
 		
 	
-			read.readURL();
-			html.writeFile(read.getURL());
-			
+			read.readURL(path);
+			html.writeFile(read.getURL(),destination);
+		}
 	
 	}
 	private boolean parseOptions(Options options, String[] args) {
@@ -43,7 +51,8 @@ public class WebPageCrawler {
 			CommandLine cmd = parser.parse(options, args);
 
 			path = cmd.getOptionValue("p");
-			verbose = cmd.hasOption("v");
+			destination = cmd.getOptionValue("d");
+			
 			help = cmd.hasOption("h");
 
 		} catch (Exception e) {
@@ -69,14 +78,15 @@ public class WebPageCrawler {
 				.argName("Path name to display")
 				.required()
 				.build());
-
-		// add options by using OptionBuilder
-		options.addOption(Option.builder("v").longOpt("verbose")
-				.desc("Display detailed messages!")
-				//.hasArg()     // this option is intended not to have an option value but just an option
-				.argName("verbose option")
-				//.required() // this is an optional option. So disabled required().
+		
+		options.addOption(Option.builder("d").longOpt("destination")
+				.desc("Set a path of directory to save html file")
+				.hasArg()
+				.argName("Destination to save")
+				.required()
 				.build());
+		// add options by using OptionBuilder
+		
 
 		// add options by using OptionBuilder
 		options.addOption(Option.builder("h").longOpt("help")
@@ -92,10 +102,10 @@ public class WebPageCrawler {
 	private void printHelp(Options options) {
 		// automatically generate the help statement
 		HelpFormatter formatter = new HelpFormatter();
-		String header = "ChatCounting Program";
+		String header = "WebPageCralwer Program";
 		String footer ="\nPlease report issues at to2915ny@me.com";
-		formatter.printHelp("ChatCounter", header, options, footer, true);
+		formatter.printHelp("WebPageCrawler", header, options, footer, true);
 	}
 }
 
-}
+

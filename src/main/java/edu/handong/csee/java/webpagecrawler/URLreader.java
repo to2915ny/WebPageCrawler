@@ -6,10 +6,10 @@ import java.io.*;
 
 public class URLreader  {
 	ArrayList<String> list = new ArrayList<String>();
-	public void readURL() {
+	public void readURL(String path) {
 		
 	try {
-	 URL url = new URL("https://www.google.com/");
+	 URL url = new URL(path);
 	
 	
      BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
@@ -18,7 +18,7 @@ public class URLreader  {
      
      while ((inputLine = in.readLine()) != null) {
     	 list.add(inputLine);
-         System.out.println(inputLine);
+         //System.out.println(inputLine);
      }
      in.close();
 	}
