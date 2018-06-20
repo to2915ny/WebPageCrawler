@@ -1,6 +1,7 @@
 package edu.handong.csee.java.webpagecrawler;
 
 import java.net.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.io.*;
 
@@ -12,7 +13,7 @@ public class URLreader  {
 	 URL url = new URL(path);
 	
 	
-     BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+     BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream(),"UTF-8"));
 
      String inputLine;
      
